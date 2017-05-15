@@ -9,6 +9,7 @@
 #ifndef Database_hpp
 #define Database_hpp
 
+#include "cocos2d.h"
 #include <stdio.h>
 #include "sqlite3.h"
 

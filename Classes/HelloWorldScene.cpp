@@ -21,8 +21,6 @@ Scene* HelloWorld::createScene()
     return scene;
 }
 
-//cocos2d::UserDefault *userDefaults = cocos2d::UserDefault::getInstance();
-
 
 
 // on "init" you need to initialize your instance
@@ -72,84 +70,26 @@ bool HelloWorld::init()
     this->addChild(label);
     
     
+    its::createPause(this, origin, visibleSize);
     
 
-    auto pauseLayer=LayerColor::create(Color4B::BLACK, visibleSize.width,visibleSize.height);
-    
-    auto pauseLabel=Label::createWithTTF("Paused", "fonts/Marker Felt.ttf", 24);
-    pauseLabel->setPosition(origin.x+visibleSize.width/2,origin.y+visibleSize.height-50);
-    pauseLayer->addChild(pauseLabel);
-    pauseLayer->setVisible(false);
-    pauseLayer->setOpacity(220);  // so that gameplay is slightly visible
-    addChild(pauseLayer);
-    
-    
-    auto pause = Sprite::create("CloseNormal.png");
-    pause->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-    addChild(pause);
-    
-    auto touchListener=EventListenerTouchOneByOne::create();
-    
-    touchListener->onTouchBegan=[pauseLayer](Touch *pTouch, Event* pEvent){
-        
-        if(!Director::getInstance()->isPaused()){
-           Director::getInstance()->pause();
-           pauseLayer->setVisible(true);
-            auto sp=dynamic_cast<Sprite*>(pEvent->getCurrentTarget());
-            sp->setTexture("CloseNormal.png");
-        }
-        else {
-            Director::getInstance()->resume();
-            pauseLayer->setVisible(false);
-            auto sp=dynamic_cast<Sprite*>(pEvent->getCurrentTarget());
-            sp->setTexture("CloseSelected.png");
-        }
-        
-        return true;
-    };
-    
-
-    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, pause);
-    
-
-    // position the sprite on the center of the screen
-    
-
-    // add the sprite as a child to this layer
-    
-    
-   // auto action= Sequence::create(MoveTo::create(1, Vec2(100,100)),MoveTo::create(1, Vec2(1,100)),nullptr);
-   // pause->runAction(RepeatForever::create(action));
+//    auto tmx=TMXTiledMap::create("untitled.tmx");
+//    addChild(tmx);
+//    
+//    
+//    auto layer=tmx->getLayer("Tile Layer 1");
+//    
+//    auto sprite=layer->getTileAt(Vec2(2,8));
+//    
+//    sprite->removeFromParent();
     
   
     
     
-    MenuItem* pauseButton = MenuItemImage::create("pauseNormal.png","pauseSelected.png",[pauseButton](Ref*sender){
-        
-        
-        if(!Director::getInstance()->isPaused()){
-            Director::getInstance()->pause();
-        }
-        else
-            Director::getInstance()->resume();
-    });
-    
-    auto buttons = Menu::create(pauseButton,NULL);
-    this->addChild(buttons);
-    buttons->setPosition(visibleSize.width / 2.0, visibleSize.height / 2.0);
-    
-     //pause();
     
     
-    
-    //scheduleUpdate();
     return true;
 }
-
-
-
-
-
 
 void HelloWorld::menuCloseCallback(Ref* pSender)
 {

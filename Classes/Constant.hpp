@@ -9,10 +9,18 @@
 #ifndef Constant_hpp
 #define Constant_hpp
 
+#include "cocos2d.h"
+#include "ui/CocosGUI.h"
 #include <stdio.h>
+
+USING_NS_CC;
 
 namespace its {
     void openApp(std::string packageName);
+    
+    void createPause(Node* node,Vec2& origin,Size& visibleSize);
+    
+    
 }
 
 
